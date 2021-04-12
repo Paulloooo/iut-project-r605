@@ -3,6 +3,7 @@
 const Dotenv = require('dotenv');
 const Confidence = require('@hapipal/confidence');
 const Toys = require('@hapipal/toys');
+const {env} = require("@hapi/eslint-config-hapi");
 
 // Pull .env into process.env
 Dotenv.config({ path: `${__dirname}/.env` });
@@ -41,6 +42,28 @@ module.exports = new Confidence.Store({
                     $filter: 'NODE_ENV',
                     $default: '@hapipal/hpal-debug',
                     production: Toys.noop
+                }
+            },
+            {
+                plugin  : '@hapipal/schwifty',
+                options : {
+                    $filter    : 'NODE_ENV',
+                    $default   : {},
+                    $base      : {
+                        migrateOnStart : true,
+                        knex           : {
+                            client     : 'mysql',
+                            connection : {
+                                host     : process.env.DB_HOST || '0.0.0.0',
+                                user     : process.env.DB_USER || 'root',
+                                password : process.env.DB_PASSWORD || 'hapi',
+                                database : process.env.DB_DATABASE || 'user'
+                            }
+                        }
+                    },
+                    production : {
+                        migrateOnStart : false
+                    }
                 }
             }
         ]
