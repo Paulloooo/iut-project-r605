@@ -38,6 +38,29 @@ Une fois le conteneur instancié, il faudra également lancer le message broker 
 
 ```docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management```
 
+### Mails 
+Enfin, il faudra créer votre redirection de mails pour ainsi tester le service. Créez vous un compte sur le site (https://ethereal.email/).
+Il faudra alors copier la configuration donnée dans le fichier /lib/services/mails.js et /server/consumer.js au sein de la variable transporter (ligne 4 et 6 respectivement).
+La configuration ressemble à ceci : 
+
+```
+const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+        user: '{mail temporaire}',
+        pass: '{mot de passe temporaire}'
+    }
+});
+```
+
+Il faudra alors reprendre cette adresse mail et la copier aux endroits suivants : 
+- /lib/services/mail.js : au sein du from lignes 16, 27, 38 et 52 à la place du mail déjà inscrit
+- /server/consumer.js : au sein du from ligne 53, et en dessous l'adresse de l'admin à qui l'envoyer (bientot fix)
+
+Cette section est sous réserve de modifications (très laborieux !)
+
+### Lancement de l'application 
 On peut désormais lancer notre application ! Ouvrez un dernier terminal et lancer les commandes suivantes : 
 ``` 
 cd {chemin de votre projet}
