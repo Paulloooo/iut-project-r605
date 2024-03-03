@@ -28,12 +28,11 @@ Clonez le répertoire git afin de récupérer le projet :
 ``` git clone https://github.com/Paulloooo/iut-project-r605 ```
 
 Allez dans le projet en faisant dans le terminal la commande 
-``` cd iut-project-r605 ````
+``` cd iut-project-r605 ```
 
 Par la suite, il faudra instaurer la base de données afin de pouvoir gérer nos films. On utilisera alors docker et on lancera cette commande : 
 
-```docker run --name hapi-mysql -e MYSQL_USER=temmie -e MYSQL_PASSWORD=hapi -e MYSQL_ROOT_PASSWORD= hapi -e MYSQL_DATABASE=user -d -p 3308:3306 mysql:8 mysqld --default-authentication-plugin=mysql_native_password
-```
+```docker run --name hapi-mysql -e MYSQL_USER=temmie -e MYSQL_PASSWORD=hapi -e MYSQL_ROOT_PASSWORD= hapi -e MYSQL_DATABASE=user -d -p 3308:3306 mysql:8 mysqld --default-authentication-plugin=mysql_native_password```
 Une fois le conteneur instancié, il faudra également lancer le message broker RabbitMQ, qui servira pour les administrateurs de l’application. Dans un autre terminal, mettez la commande :
 ```docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management```
 On peut désormais lancer notre application ! Ouvrez un dernier terminal et lancer les commandes suivantes : 
