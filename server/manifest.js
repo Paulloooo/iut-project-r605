@@ -56,8 +56,8 @@ module.exports = new Confidence.Store({
                             useNullAsDefault: true,     // Suggested for sqlite3
                             connection: {
                                 host: process.env.DB_HOST || 'localhost',
-                                user: process.env.DB_USER || 'neuille',
-                                password: process.env.DB_PASSWORD || 'frere',
+                                user: process.env.DB_USER || 'root',
+                                password: process.env.DB_PASSWORD || 'hapi',
                                 database: process.env.DB_DATABASE || 'user',
                                 port: 3308
                             }
